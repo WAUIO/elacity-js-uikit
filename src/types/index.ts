@@ -1,1 +1,1 @@
-export declare type SupportedThemes = 'mui';
+export * from './settings';

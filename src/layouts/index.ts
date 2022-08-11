@@ -1,1 +1,2 @@
-export const GroupName_Layouts = 'layouts';
+export { default as DefaultWrapper } from './DefaultWrapper';
+export { default as DefaultLayout } from './DefaultLayout';
