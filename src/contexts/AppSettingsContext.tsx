@@ -3,7 +3,15 @@ import React from 'react';
 import { IStorage } from '@elacity-js/lib'
 import { IUserPreferences } from '../types';
 
+interface LogoSet {
+  primary: string;
+  alt?: string;
+  minimized?: string;
+}
+
 export interface AppSettingsContextValue {
+  appName: string;
+  logo: LogoSet;
   values: IUserPreferences;
   setValues: (v: Partial<IUserPreferences>) => void;
   load: () => void;
@@ -17,10 +25,14 @@ export const defaultValues: IUserPreferences = {
 };
 
 interface AppSettingsProviderProps {
+  appName: string;
+  logo: LogoSet;
   storage: IStorage<IUserPreferences>
 }
 
 const AppSettingsContext = React.createContext<AppSettingsContextValue>({
+  appName: '',
+  logo: { primary: '' },
   values: defaultValues,
   setValues: () => { },
   load: () => { },
@@ -51,9 +63,11 @@ const reducerFactory: ReducerFactory = (storage: IStorage<IUserPreferences>) => 
   }
 };
 
-export const AppSettingsProvider: React.FC<React.PropsWithChildren<AppSettingsProviderProps>> = ({
-  children,
+export const AppSettingsProvider = ({
+  appName,
+  logo: _logo,
   storage,
+  children,
 }: React.PropsWithChildren<AppSettingsProviderProps>) => {
   const [values, dispatch] = React.useReducer(
     reducerFactory(storage),
@@ -63,6 +77,13 @@ export const AppSettingsProvider: React.FC<React.PropsWithChildren<AppSettingsPr
   const load = () => dispatch({
     type: 'LOAD',
   });
+
+  const logo = Object.entries(_logo).reduce(
+    (l, [key, value]) => ({
+      ...l,
+      [key]: value?.replace('[theme]', values.theme)
+    }), {}
+  ) as LogoSet;
 
   const setValues = (payload: Partial<IUserPreferences>) => dispatch({
     type: 'SET',
@@ -77,6 +98,8 @@ export const AppSettingsProvider: React.FC<React.PropsWithChildren<AppSettingsPr
   return (
     <AppSettingsContext.Provider
       value={{
+        appName,
+        logo,
         values,
         setValues,
         load,

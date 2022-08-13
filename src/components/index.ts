@@ -1,5 +1,4 @@
 export * from './Accordion';
-export { default as AnimateButton } from './AnimateButton';
 export { default as Appeal } from './Appeal';
 export { default as FrostedBackground } from './FrostedBackground';
 export { default as FullscreenDialog } from './FullscreenDialog';
@@ -19,5 +18,7 @@ export { default as Scrollbar } from './Scrollbar';
 export { default as StepProgress } from './StepProgress';
 export { default as SwitchRadio } from './SwitchRadio';
 export { default as ThemeSwitcher } from './ThemeSwitcher';
-export { default as Searchbar } from './Searchbar';
 export { default as ScrollToTop } from './ScrollToTopButton';
+export * from './Nav';
+export { default as Nav } from './Nav';
+export { default as Button } from './Button';

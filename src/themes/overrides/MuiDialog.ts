@@ -1,5 +1,5 @@
 import React from 'react';
-import { Theme, lighten } from '@mui/material/styles';
+import { Theme } from '@mui/material/styles';
 
 export default function IconButton(theme: Theme) {
   let paperStyles: React.CSSProperties = {};

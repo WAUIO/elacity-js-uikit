@@ -1,6 +1,7 @@
 import peerDepsExternal from "rollup-plugin-peer-deps-external";
 import resolve from "@rollup/plugin-node-resolve";
 import typescript from "@rollup/plugin-typescript";
+import image from "@rollup/plugin-image";
 import dts from "rollup-plugin-dts";
 import postcss from "rollup-plugin-postcss";
 import svg from "rollup-plugin-svg-import";
@@ -32,6 +33,7 @@ export default [
       postcss({
         extensions: [".css"],
       }),
+      image(),
       // terser(),
     ]
   },

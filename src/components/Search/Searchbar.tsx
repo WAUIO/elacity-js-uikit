@@ -25,9 +25,12 @@ import {
 } from '@mui/material';
 import type { PopperProps } from '@mui/material/Popper';
 import type { ListItemProps } from '@mui/material/ListItem';
-import useDebounce from '../hooks/useDebounce';
-import Spinner from './Spinner';
-import Scrollbar from './Scrollbar';
+import useDebounce from '../../hooks/useDebounce';
+import Spinner from '../Spinner';
+import Scrollbar from '../Scrollbar';
+
+// @TODO: use searchContext for a better separation of UI/UX and flows
+// in same way, make sure to review SearchContext to have a better implementation
 
 export const ListItemResult = styled(MuiListItem)<ListItemProps & LinkProps & { component: React.ComponentType }>(({ theme }) => ({
   color: theme.palette.text.primary,

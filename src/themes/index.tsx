@@ -27,6 +27,12 @@ interface GlassyProperties {
 
 declare type GradientColorOption = string | [string, number];
 
+declare module '@mui/material/Button' {
+  interface ButtonPropsVariantOverrides {
+    shape?: 'normal' | 'rounded' | 'square';
+  }
+}
+
 declare module '@mui/material/styles' {
   interface Palette {
     vivid: PaletteColor;
@@ -165,5 +171,12 @@ export const ThemeProvider: FC<PropsWithChildren<ThemeProviderProps>> = ({
     </MuiProvider>
   );
 };
+
+ThemeProvider.defaultProps = {
+  customization: {
+    light: {},
+    dark: {},
+  },
+}
 
 export default createThemeWith;

@@ -3,6 +3,26 @@ import { Theme, darken } from '@mui/material/styles';
 export default function Button(theme: Theme) {
   return {
     MuiButton: {
+      variants: [
+        {
+          props: { shape: 'normal' },
+          style: {
+            borderRadius: 0,
+          },
+        },
+        {
+          props: { shape: 'square' },
+          style: {
+            borderRadius: 0,
+          },
+        },
+        {
+          props: { shape: 'rounded' },
+          style: {
+            borderRadius: 8 * Number(theme.shape.borderRadius),
+          },
+        }
+      ],
       styleOverrides: {
         root: {
           textTransform: 'capitalize',

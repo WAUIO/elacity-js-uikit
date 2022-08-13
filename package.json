@@ -1,6 +1,6 @@
 {
   "name": "@elacity-js/uikit",
-  "version": "1.6.0-alpha.2",
+  "version": "1.6.0-alpha.3",
   "description": "React / Material UI Design kit for Elacity project",
   "main": "dist/index.js",
   "module": "dist/index.js",
@@ -57,6 +57,7 @@
     "simplebar-react": "^2.3.6"
   },
   "devDependencies": {
+    "@rollup/plugin-image": "^2.1.1",
     "@rollup/plugin-node-resolve": "^13.3.0",
     "@rollup/plugin-typescript": "^8.3.4",
     "@types/jest": "^28.1.6",

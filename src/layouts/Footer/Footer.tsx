@@ -8,6 +8,7 @@ import {
 } from '@mui/material/styles';
 import { RouterLink } from '../../components/Link';
 import { FullLogo as Logo } from '../../assets/Logo';
+import { useAppSettings } from '../../hooks';
 import ElastosMark from './ElastosMark';
 
 interface ItemProps {
@@ -49,6 +50,7 @@ interface Props {
 
 export default function FooterLayout({ sx, hideLeftFrom }: Props) {
   const isNotLarge = useMediaQuery((t: Theme) => t.breakpoints.down('lg'));
+  const { appName } = useAppSettings();
 
   return (
     <FooterContainer sx={sx}>
@@ -60,7 +62,7 @@ export default function FooterLayout({ sx, hideLeftFrom }: Props) {
         px={0}
       >
         <Item hideFrom={hideLeftFrom || 'sm'}>
-          <ElastosMark />
+          <ElastosMark position="relative" />
         </Item>
         <Item>
           <Link component={RouterLink} to="/">
@@ -74,7 +76,7 @@ export default function FooterLayout({ sx, hideLeftFrom }: Props) {
               {' '}
               {new Date().getFullYear()}
               {' '}
-              Elacity
+              {appName}
             </Link>
           </Box>
           <Box sx={{ fontSize: '85%' }}>{`version ${process.env.REACT_APP_VERSION}`}</Box>

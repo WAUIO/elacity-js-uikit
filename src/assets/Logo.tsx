@@ -7,6 +7,7 @@ import { useTheme } from '@mui/material/styles';
 import { styled, Theme } from '@mui/system';
 import { WithTheme } from '@emotion/react';
 import { baseURL } from '@elacity-js/lib';
+import useAppSettings from '../hooks/useAppSettings';
 
 // @ts-ignore
 const BaseLogo = styled('svg')(({ theme }: WithTheme<any, Theme>) => {
@@ -62,7 +63,7 @@ const useResponsivenessWith = (sz: number) => {
 };
 
 export const FullLogo: FC<FullLogoProps> = ({ size, minimized, responsive }: FullLogoProps) => {
-  const theme = useTheme();
+  const { logo } = useAppSettings();
 
   const responsiveSize = useResponsivenessWith(size || 120);
 
@@ -70,7 +71,7 @@ export const FullLogo: FC<FullLogoProps> = ({ size, minimized, responsive }: Ful
     <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
       <img
         alt="elacity"
-        src={baseURL(minimized ? '/static/elacity/bella.png' : `/static/elacity/full_logo_${theme.palette.mode}.png`)}
+        src={baseURL(!minimized ? logo.alt : logo?.minimized ?? logo?.primary)}
         style={{
           width: responsive ? responsiveSize : size || 120,
           height: 'auto',
