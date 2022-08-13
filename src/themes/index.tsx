@@ -34,6 +34,18 @@ declare module '@mui/material/Button' {
 }
 
 declare module '@mui/material/styles' {
+  interface LayoutSettings {
+    appBarMobile?: number;
+    appBarDesktop?: number;
+    drawerWidth?: number;
+    drawerWidthMin?: number;
+    cardMobileXsWidth?: number;
+  }
+
+  interface ThemeOptions {
+    layoutSettings?: LayoutSettings;
+  }
+
   interface Palette {
     vivid: PaletteColor;
     vivid2: PaletteColor;
@@ -48,14 +60,6 @@ declare module '@mui/material/styles' {
 
   interface TypeBackground {
     sidebar?: string;
-  }
-
-  interface LayoutSettings {
-    appBarMobile?: number;
-    appBarDesktop?: number;
-    drawerWidth?: number;
-    drawerWidthMin?: number;
-    cardMobileXsWidth?: number;
   }
 
   interface Theme {
@@ -98,9 +102,19 @@ const createGradient = (tilt: number | null, ...colors: GradientColorOption[]): 
   return values;
 };
 
-const createThemeWith = (config: IUserPreferences = {}, customization?: Partial<typeof themes>): Theme => {
+const createThemeWith = (config: IUserPreferences = {}, customization?: Partial<typeof themes> & { common?: ThemeOptions }): Theme => {
   const mode = config.theme || 'light';
   const userOptions = themes[mode];
+  const commonOptions = customization?.common || {
+    // set here all default values
+    layoutSettings: {
+      appBarDesktop: 56,
+      appBarMobile: 46,
+      drawerWidth: 305,
+      drawerWidthMin: 80,
+      cardMobileXsWidth: 328,
+    }
+  };
 
   const theme = createTheme(
     deepmerge(
@@ -108,7 +122,7 @@ const createThemeWith = (config: IUserPreferences = {}, customization?: Partial<
         { direction: config.direction || 'ltr' }, commonOptions
       ),
       deepmerge(
-        userOptions, customization[mode] || {}
+        userOptions, deepmerge(customization[mode] || {}, commonOptions)
       )
     )
   );
@@ -154,7 +168,7 @@ const createThemeWith = (config: IUserPreferences = {}, customization?: Partial<
 };
 
 interface ThemeProviderProps {
-  customization?: Partial<typeof themes>;
+  customization?: Partial<typeof themes> & { common?: ThemeOptions };
 }
 
 export const ThemeProvider: FC<PropsWithChildren<ThemeProviderProps>> = ({

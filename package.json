@@ -1,6 +1,6 @@
 {
   "name": "@elacity-js/uikit",
-  "version": "1.6.0-alpha.4",
+  "version": "1.6.0-alpha.5",
   "description": "React / Material UI Design kit for Elacity project",
   "main": "dist/index.js",
   "module": "dist/index.js",
