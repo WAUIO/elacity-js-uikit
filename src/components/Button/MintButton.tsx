@@ -1,5 +1,6 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import React from 'react';
+import { useNavigate } from 'react-router-dom';
 import { IconButton } from '@mui/material';
 import LoadingButton, { LoadingButtonProps } from '@mui/lab/LoadingButton';
 import AddIcon from '@mui/icons-material/Add';
@@ -9,20 +10,30 @@ import { isMobile } from '@elacity-js/lib';
 // @ts-ignore
 import ShinyStar from '../../assets/shiny-stars.png';
 
-export interface MintBntProps extends LoadingButtonProps {
+export interface MintButtonProps extends LoadingButtonProps {
   label?: string;
   onClick?: () => void;
   responsive?: boolean;
 }
 
-export default ({ onClick, responsive, label, ...props }: MintBntProps) => {
+const MintButton = ({ onClick, responsive, label, ...props }: MintButtonProps) => {
   const theme = useTheme();
+  const navigate = useNavigate();
   const isSmDown = useMediaQuery((t: Theme) => t.breakpoints.down('sm'));
   const isVerySmall = isMobile();
 
+  const handleClick = () => {
+    // if onClick handler is not defined, let's redirect to /new
+    if (!onClick) {
+      navigate('/new');
+    } else {
+      onClick();
+    }
+  }
+
   if (isVerySmall && responsive) {
     return (
-      <IconButton onClick={onClick}>
+      <IconButton onClick={handleClick}>
         <AddIcon />
       </IconButton>
     );
@@ -30,7 +41,7 @@ export default ({ onClick, responsive, label, ...props }: MintBntProps) => {
 
   return (
     <LoadingButton
-      onClick={onClick}
+      onClick={handleClick}
       size={isSmDown ? 'small' : 'medium'}
       variant="contained"
       color={theme.palette.mode === 'light' ? 'primary' : 'secondary'}
@@ -41,3 +52,5 @@ export default ({ onClick, responsive, label, ...props }: MintBntProps) => {
     </LoadingButton>
   );
 };
+
+export default MintButton;

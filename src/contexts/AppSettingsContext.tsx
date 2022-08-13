@@ -3,6 +3,14 @@ import React from 'react';
 import { IStorage } from '@elacity-js/lib'
 import { IUserPreferences } from '../types';
 
+interface AppLinks {
+  documentation?: string;
+  socials?: {
+    provider: string;
+    url: string;
+  }[];
+}
+
 interface LogoSet {
   primary: string;
   alt?: string;
@@ -10,8 +18,12 @@ interface LogoSet {
 }
 
 export interface AppSettingsContextValue {
+  // related to app itself
   appName: string;
   logo: LogoSet;
+  links?: AppLinks;
+
+  // related to user
   values: IUserPreferences;
   setValues: (v: Partial<IUserPreferences>) => void;
   load: () => void;
@@ -27,7 +39,8 @@ export const defaultValues: IUserPreferences = {
 interface AppSettingsProviderProps {
   appName: string;
   logo: LogoSet;
-  storage: IStorage<IUserPreferences>
+  storage: IStorage<IUserPreferences>;
+  links?: AppLinks;
 }
 
 const AppSettingsContext = React.createContext<AppSettingsContextValue>({
@@ -66,6 +79,7 @@ const reducerFactory: ReducerFactory = (storage: IStorage<IUserPreferences>) => 
 export const AppSettingsProvider = ({
   appName,
   logo: _logo,
+  links,
   storage,
   children,
 }: React.PropsWithChildren<AppSettingsProviderProps>) => {
@@ -100,6 +114,7 @@ export const AppSettingsProvider = ({
       value={{
         appName,
         logo,
+        links,
         values,
         setValues,
         load,

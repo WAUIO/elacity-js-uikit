@@ -3,11 +3,14 @@ import { Theme, darken } from '@mui/material/styles';
 export default function Button(theme: Theme) {
   return {
     MuiButton: {
+      defaultProps: {
+        shape: 'normal',
+      },
       variants: [
         {
           props: { shape: 'normal' },
           style: {
-            borderRadius: 0,
+            // nothing here actually
           },
         },
         {

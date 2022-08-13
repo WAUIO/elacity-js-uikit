@@ -1,5 +1,7 @@
 export * from './Accordion';
 export { default as Appeal } from './Appeal';
+export { default as Avatar } from './Avatar';
+export { default as AccountPopover } from './AccountPopover';
 export { default as FrostedBackground } from './FrostedBackground';
 export { default as FullscreenDialog } from './FullscreenDialog';
 export { default as InlineInformation } from './InlineInformation';
@@ -19,6 +21,7 @@ export { default as StepProgress } from './StepProgress';
 export { default as SwitchRadio } from './SwitchRadio';
 export { default as ThemeSwitcher } from './ThemeSwitcher';
 export { default as ScrollToTop } from './ScrollToTopButton';
+export { default as Image } from './Image';
 export * from './Nav';
 export { default as Nav } from './Nav';
 export { default as Button } from './Button';

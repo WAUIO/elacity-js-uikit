@@ -12,8 +12,13 @@ import { RouterLink as Link } from '../components/Link';
 import MHidden from '../components/MHidden';
 import Searchbar, { SearchbarVisible } from '../components/Search/Searchbar';
 import ThemeSwitcher from '../components/ThemeSwitcher';
-import Nav from '../components/Nav';
+import Nav, { Route as MenuSetting } from '../components/Nav';
+import AccountPopover from '../components/AccountPopover';
 import Button from '../components/Button';
+
+// @TODO: Ensure to make this component a working component, even without any customization
+// Just implement elacity behavior
+// in prior, resolve searchbar context implementation
 
 const searchProps = {
   // just a placeholder for now: no result, never fetching
@@ -44,15 +49,17 @@ const Toolbar = styled(MuiToolbar)(({ theme }) => ({
 }));
 // ----------------------------------------------------------------------
 
-interface DashboardNavbarProps {
-  onOpenSidebar: () => void;
+interface NavbarProps {
+  onOpenSidebar?: () => void;
   minimizedSidebar?: boolean;
+  shadowEffect?: boolean;
+  menus?: MenuSetting[];
 }
 
-export default function DashboardNavbar({ onOpenSidebar, children }: React.PropsWithChildren<DashboardNavbarProps>) {
+export default function Navbar({ onOpenSidebar, menus, shadowEffect, children }: React.PropsWithChildren<NavbarProps>) {
   const breadcrumbsProps: BreadcrumbsProps = {};
   const appbarRef = React.useRef<HTMLDivElement>(null);
-  const { appName, logo } = useAppSettings();
+  const { appName, logo, setValues, values } = useAppSettings();
 
   React.useEffect(() => {
     // these rules will only apply on large screen
@@ -60,6 +67,10 @@ export default function DashboardNavbar({ onOpenSidebar, children }: React.Props
     // - add `shadowed` class on AppBar when scrolling down from 10% of window heigh
     // - remove `shadowed` class on AppBar when comming near of top
     const handleTopScroll = (e: MouseEvent) => {
+      if (!shadowEffect) {
+        return;
+      }
+
       const scrollPosition = document.body.scrollTop || document.documentElement.scrollTop;
       if (appbarRef.current) {
         if (scrollPosition > 120) {
@@ -112,7 +123,7 @@ export default function DashboardNavbar({ onOpenSidebar, children }: React.Props
         </>
 
         <MHidden width="lgDown">
-          <Nav.HorizontalMenu menus={[]} />
+          <Nav.HorizontalMenu menus={menus} />
         </MHidden>
 
         <Box sx={{ flexGrow: 1 }} />
@@ -120,11 +131,18 @@ export default function DashboardNavbar({ onOpenSidebar, children }: React.Props
         <Stack direction="row" alignItems="center" spacing={{ xs: 0, sm: 1.5 }} sx={{ pl: 1 }}>
           <Button.Mint responsive />
           <Box sx={{ justifyContent: 'center', ml: -1 }}>
-            <ThemeSwitcher value="light" />
+            <ThemeSwitcher value={values.theme || 'light'} onChange={(themeValue) => setValues({ theme: themeValue })} />
           </Box>
           {children}
+          {!children && <AccountPopover />}
         </Stack>
       </Toolbar>
     </AppBar>
   );
+}
+
+Navbar.defaultProps = {
+  shadowEffect: true,
+  menus: [],
+  onOpenSidebar: () => console.warn('[Navbar.onOpenSidebar] Not implemented!')
 }

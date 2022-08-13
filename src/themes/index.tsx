@@ -102,19 +102,9 @@ const createGradient = (tilt: number | null, ...colors: GradientColorOption[]): 
   return values;
 };
 
-const createThemeWith = (config: IUserPreferences = {}, customization?: Partial<typeof themes> & { common?: ThemeOptions }): Theme => {
+const createThemeWith = (config: IUserPreferences = {}, customization?: Partial<typeof themes>): Theme => {
   const mode = config.theme || 'light';
   const userOptions = themes[mode];
-  const commonOptions = customization?.common || {
-    // set here all default values
-    layoutSettings: {
-      appBarDesktop: 56,
-      appBarMobile: 46,
-      drawerWidth: 305,
-      drawerWidthMin: 80,
-      cardMobileXsWidth: 328,
-    }
-  };
 
   const theme = createTheme(
     deepmerge(
@@ -122,7 +112,7 @@ const createThemeWith = (config: IUserPreferences = {}, customization?: Partial<
         { direction: config.direction || 'ltr' }, commonOptions
       ),
       deepmerge(
-        userOptions, deepmerge(customization[mode] || {}, commonOptions)
+        userOptions, customization[mode] || {}
       )
     )
   );
@@ -168,7 +158,7 @@ const createThemeWith = (config: IUserPreferences = {}, customization?: Partial<
 };
 
 interface ThemeProviderProps {
-  customization?: Partial<typeof themes> & { common?: ThemeOptions };
+  customization?: Partial<typeof themes>;
 }
 
 export const ThemeProvider: FC<PropsWithChildren<ThemeProviderProps>> = ({

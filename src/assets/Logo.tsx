@@ -3,7 +3,6 @@
 import React from 'react';
 import type { FC, CSSProperties } from 'react';
 import { useMediaQuery } from '@mui/material';
-import { useTheme } from '@mui/material/styles';
 import { styled, Theme } from '@mui/system';
 import { WithTheme } from '@emotion/react';
 import { baseURL } from '@elacity-js/lib';

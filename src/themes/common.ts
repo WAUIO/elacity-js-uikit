@@ -71,4 +71,11 @@ export const commonOptions: ThemeOptions = {
   //   },
   // },
   shadows,
+  layoutSettings: {
+    appBarDesktop: 56,
+    appBarMobile: 46,
+    drawerWidth: 305,
+    drawerWidthMin: 80,
+    cardMobileXsWidth: 328,
+  }
 };
