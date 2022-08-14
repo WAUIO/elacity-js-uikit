@@ -11,16 +11,19 @@ import MenuPopover from './MenuPopover';
 import Button from './Button';
 
 interface Props {
-  active?: boolean;
-  profile?: IUser.ProfileBase;
+  // ui
   noMenu?: boolean;
   size?: number;
-  onConnect?: () => void;
-  onDisconnect?: () => void;
 
   // connect button
   label?: string;
   altLabel?: string;
+
+  // profile context should provide data below
+  active?: boolean;
+  profile?: IUser.ProfileBase;
+  onConnect?: () => void;
+  onDisconnect?: () => void;
 }
 
 export default function AccountPopover({ label, altLabel, active, noMenu, size, onDisconnect, onConnect, profile, children }: React.PropsWithChildren<Props>) {

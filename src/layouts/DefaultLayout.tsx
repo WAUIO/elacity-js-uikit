@@ -53,9 +53,9 @@ export const MainLayout = styled('div', {
   minHeight: '100%',
   '& > *:first-of-type': {
     // ensure to fill all the available height, minus the header
-    minHeight: 'calc(100vh - 150px)',
+    minHeight: 'calc(100vh - 160px)',
     [theme.breakpoints.down('lg')]: {
-      minHeight: 'calc(100vh - 210px)',
+      minHeight: 'calc(100vh - 215px)',
     },
   },
 }));

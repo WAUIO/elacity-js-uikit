@@ -9,9 +9,10 @@ import {
   NavLinkProps,
 } from 'react-router-dom';
 
-export const RouterLink = ({ to, ...props }: RouterLinkProps) => (
-  <RouterLinkBase {...props} to={baseURL(to as string)} />
-);
+// see https://mui.com/material-ui/guides/composition/#caveat-with-refs
+export const RouterLink = React.forwardRef<HTMLAnchorElement, RouterLinkProps>(({ to, ...props }, ref) => (
+  <RouterLinkBase ref={ref} {...props} to={baseURL(to as string)} />
+))
 
 export const NavLink = ({ to, ...props }: NavLinkProps) => (
   <NavLinkBase {...props} to={baseURL(to as string)} />

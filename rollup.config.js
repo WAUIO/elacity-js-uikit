@@ -5,7 +5,6 @@ import image from "@rollup/plugin-image";
 import dts from "rollup-plugin-dts";
 import postcss from "rollup-plugin-postcss";
 import svg from "rollup-plugin-svg-import";
-// import { terser } from "rollup-plugin-terser";
 
 const packageJson = require("./package.json");
 
