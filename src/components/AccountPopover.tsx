@@ -1,7 +1,6 @@
 import React, {
   useRef, useState, useEffect,
 } from 'react';
-import { IUser } from '@elacity-js/lib';
 import { alpha } from '@mui/material/styles';
 import {
   Box, IconButton
@@ -9,6 +8,7 @@ import {
 import Avatar from './Avatar';
 import MenuPopover from './MenuPopover';
 import Button from './Button';
+import useAuthentication from '../hooks/useAuthentication';
 
 interface Props {
   // ui
@@ -18,15 +18,10 @@ interface Props {
   // connect button
   label?: string;
   altLabel?: string;
-
-  // profile context should provide data below
-  active?: boolean;
-  profile?: IUser.ProfileBase;
-  onConnect?: () => void;
-  onDisconnect?: () => void;
 }
 
-export default function AccountPopover({ label, altLabel, active, noMenu, size, onDisconnect, onConnect, profile, children }: React.PropsWithChildren<Props>) {
+export default function AccountPopover({ label, altLabel, noMenu, size, children }: React.PropsWithChildren<Props>) {
+  const { isAuthenticated, profile, connect, disconnect } = useAuthentication();
   const anchorRef = useRef(null);
   const [open, setOpen] = useState<boolean>(false);
 
@@ -37,10 +32,18 @@ export default function AccountPopover({ label, altLabel, active, noMenu, size, 
     setOpen(false);
   };
 
-  const handleDisconnect = () => {
-    onDisconnect?.();
-    setOpen(false);
-  };
+  const handleDisconnect = React.useCallback(
+    async () => {
+      await disconnect?.();
+      setOpen(false);
+    }, [isAuthenticated]
+  );
+
+  const handleConnect = React.useCallback(
+    async () => {
+      await connect?.();
+    }, [isAuthenticated]
+  )
 
   useEffect(() => {
     if (!anchorRef.current) {
@@ -50,8 +53,8 @@ export default function AccountPopover({ label, altLabel, active, noMenu, size, 
 
   return (
     <>
-      {!active ? (
-        <Button.Animate onClick={onConnect} label={label} altLabel={altLabel} />
+      {!isAuthenticated ? (
+        <Button.Animate onClick={handleConnect} label={label} altLabel={altLabel} />
       ) : (
         <>
           <IconButton
