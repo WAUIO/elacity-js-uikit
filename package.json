@@ -1,6 +1,6 @@
 {
   "name": "@elacity-js/uikit",
-  "version": "1.6.0-alpha.7",
+  "version": "1.6.0-alpha.8",
   "description": "React / Material UI Design kit for Elacity project",
   "main": "dist/index.js",
   "module": "dist/index.js",
@@ -73,6 +73,7 @@
     "typescript": "^4.7.4"
   },
   "dependencies": {
+    "react-dropzone": "^14.2.2",
     "react-intersection-observer": "^9.4.0"
   }
 }

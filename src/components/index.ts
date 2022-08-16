@@ -25,3 +25,7 @@ export { default as Image } from './Image';
 export * from './Nav';
 export { default as Nav } from './Nav';
 export { default as Button } from './Button';
+export { default as MediaViewer } from './MediaViewer';
+export * from './MediaViewer';
+export { default as Uploader } from './Uploader';
+export * from './Uploader';
