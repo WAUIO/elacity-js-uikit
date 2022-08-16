@@ -48,7 +48,7 @@ const MintButton = ({ onClick, responsive, label, ...props }: MintButtonProps) =
       endIcon={<img src={ShinyStar} alt={(label || 'Mint').toLowerCase()} style={{ height: '23px' }} />}
       {...props}
     >
-      {label || 'Mint'}
+      {label || 'Create'}
     </LoadingButton>
   );
 };

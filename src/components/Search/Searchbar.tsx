@@ -269,7 +269,7 @@ export default <T extends unknown>({ renderResult, useQuery }: Props<T>) => {
                 autoFocus
                 fullWidth
                 disableUnderline
-                placeholder="Search NFTs, Collections, Shops,…"
+                placeholder="Search..."
                 startAdornment={(
                   <InputAdornment position="start">
                     <Box component={Icon} icon={searchFill} sx={{ color: 'text.disabled', width: 20, height: 20 }} />
@@ -372,7 +372,7 @@ export const SearchbarVisible = <T extends unknown>({ renderResult, useQuery }: 
       <SearchbarWrapper>
         <div className="UiPopper-Wrapper" ref={containerEl} />
         <SearchInput
-          placeholder="Search NFTs, Collections, Shops,…"
+          placeholder="Search..."
           size="small"
           fullWidth
           ref={anchorEl}
