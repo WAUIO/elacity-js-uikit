@@ -1,9 +1,12 @@
 import React from 'react';
 import Typography, { TypographyProps } from '@mui/material/Typography';
 import { styled } from '@mui/material/styles';
-import { fPercent } from '@open-zhy/utils';
 
-const calculatePercentage = (from: number, to: number) => fPercent((100 * (to - from)) / from);
+const calculatePercentage = (from: number, to: number) => new Intl.NumberFormat('default', {
+  style: 'percent',
+  minimumFractionDigits: 2,
+  maximumFractionDigits: 2,
+}).format(((to - from)) / from);
 
 const PercentValue = styled(Typography, {
   shouldForwardProp: (prop: string) => !['up', 'down'].includes(prop),
