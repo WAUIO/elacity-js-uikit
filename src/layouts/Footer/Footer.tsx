@@ -53,8 +53,9 @@ export default function FooterLayout({ sx, hideLeftFrom }: Props) {
   const { appName } = useAppSettings();
 
   return (
-    <FooterContainer sx={sx}>
+    <FooterContainer className="Footer-root" sx={sx}>
       <Stack
+        className="Footer-stack"
         direction={isNotLarge ? 'column' : 'row'}
         spacing={0}
         justifyContent="space-between"

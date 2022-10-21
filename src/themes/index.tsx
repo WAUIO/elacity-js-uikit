@@ -102,7 +102,7 @@ const createGradient = (tilt: number | null, ...colors: GradientColorOption[]): 
   return values;
 };
 
-const createThemeWith = (config: IUserPreferences = {}, customization?: Partial<typeof themes>): Theme => {
+export const createThemeWith = (config: IUserPreferences = {}, customization?: Partial<typeof themes>): Theme => {
   const mode = config.theme || 'light';
   const userOptions = themes[mode];
 
