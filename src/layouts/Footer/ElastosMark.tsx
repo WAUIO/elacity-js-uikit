@@ -12,6 +12,8 @@ const ImgLogo = styled('img')(({ theme }) => ({
 }));
 
 const Container = styled(Box, {
+  name: 'ElastosMark',
+  slot: 'Root',
   shouldForwardProp: (prop: string) => !['position'].includes(prop),
 })<BoxProps & { position?: CSSProperties['position'] }>(({ theme, position }) => ({
   textAlign: 'center',

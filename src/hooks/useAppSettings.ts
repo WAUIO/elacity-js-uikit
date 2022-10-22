@@ -1,6 +1,5 @@
-import { useContext } from 'react';
+import { buildContextHook } from './utils';
 import Context from '../contexts/AppSettingsContext';
-import type { AppSettingsContextValue as Type } from '../contexts/AppSettingsContext';
 
-const useAppSettings = (): Type => useContext(Context);
+const useAppSettings = buildContextHook(Context, 'useAppSettings', 'AppSettingsProvider');
 export default useAppSettings;

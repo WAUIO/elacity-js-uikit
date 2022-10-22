@@ -29,8 +29,10 @@ const Item = styled('div', {
   },
 }));
 
+declare type FooterPosition = 'fixed' | 'relative' | 'absolute';
 interface FooterContainerProps {
   adjustWith?: number;
+  position?: FooterPosition;
 }
 
 const FooterContainer = styled(Box, {
@@ -42,7 +44,6 @@ const FooterContainer = styled(Box, {
   ],
 })<FooterContainerProps>(({ theme }) => ({
   bottom: 0,
-  // width: `calc(100vw - ${adjustWith}px)`,
   margin: theme.spacing(2, 'auto', 1),
   [theme.breakpoints.down('lg')]: {
     width: '100%',
@@ -52,7 +53,7 @@ const FooterContainer = styled(Box, {
 interface Props {
   sx?: SxProps;
   hideLeftFrom?: Breakpoint;
-  position?: 'fixed' | 'relative' | 'absolute';
+  position?: FooterPosition;
 }
 
 export default function FooterLayout({ sx, hideLeftFrom, position }: Props) {
@@ -92,4 +93,8 @@ export default function FooterLayout({ sx, hideLeftFrom, position }: Props) {
       </Stack>
     </FooterContainer>
   );
+}
+
+FooterLayout.defaultProps = {
+  position: 'relative'
 }

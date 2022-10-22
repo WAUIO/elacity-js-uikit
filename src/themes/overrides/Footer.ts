@@ -4,7 +4,7 @@ export default function Footer(theme: Theme) {
   return {
     Footer: {
       defaultProps: {
-        position: 'relative'
+        position: 'relative',
       },
       styleOverrides: {
         root: {},

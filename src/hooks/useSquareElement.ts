@@ -5,17 +5,30 @@ const makeSquareByWidth = ($el: HTMLElement) => {
   $el.style.height = `${width}px`;
 };
 
-export default ($el: HTMLElement | null) => {
+const makeSquareByHeight = ($el: HTMLElement) => {
+  const height = $el.clientHeight;
+  $el.style.width = `${height}px`;
+};
+
+export default ($el: HTMLElement | null, by: 'width' | 'height') => {
+  let sizer = ($el: HTMLElement) => { };
+  if (!by || by === 'width') {
+    sizer = makeSquareByWidth;
+  } else {
+    sizer = makeSquareByHeight;
+  }
+
   useEffect(() => {
-    // set height according to current width
+    // set size according to actual dimension of the element
+    // and the anchor we should rely on: width or height
     if ($el) {
-      makeSquareByWidth($el);
+      sizer($el);
     }
 
     // handle resize events
     const handleResize = () => {
       if ($el) {
-        makeSquareByWidth($el);
+        sizer($el);
       }
     };
 

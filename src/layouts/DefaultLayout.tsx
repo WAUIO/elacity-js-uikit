@@ -7,7 +7,8 @@ import useMediaQuery from '@mui/material/useMediaQuery';
 import { styled, useTheme } from '@mui/material/styles';
 import ScrollToTop from '../components/ScrollToTopButton';
 import MHidden from '../components/MHidden';
-import Footer from './Footer';
+import NavbarComponent from './Navbar';
+import FooterComponent from './Footer';
 
 export const RootWrapper = styled('div')({
   display: 'flex',
@@ -34,8 +35,10 @@ interface LayoutProps {
 
   // props below should not be among MainLayout
   sidebar?: React.ReactNode;
-  navbar?: React.ReactNode;
   hiddenBottom?: React.ReactNode;
+
+  Navbar?: React.ComponentType;
+  Footer?: React.ComponentType;
 }
 
 export const MainLayout = styled('div', {
@@ -47,7 +50,7 @@ export const MainLayout = styled('div', {
     props.noPadding && styles.noPadding,
     props.withBottomNav && styles.withBottomNav,
   ],
-})<Omit<LayoutProps, 'sidebar' | 'navbar' | 'hiddenBottom'>>(({ theme }) => ({
+})<Omit<LayoutProps, 'sidebar' | 'hiddenBottom' | 'scrollToTop' | 'Footer' | 'Navbar'>>(({ theme }) => ({
   flexGrow: 1,
   overflow: 'auto',
   minHeight: '100%',
@@ -60,7 +63,7 @@ export const MainLayout = styled('div', {
   },
 }));
 
-export default function DefaultLayout({ sidebar, navbar, hiddenBottom, scrollToTop, ...props }: LayoutProps) {
+export default function DefaultLayout({ sidebar, hiddenBottom, scrollToTop, Navbar, Footer, ...props }: LayoutProps) {
   const theme = useTheme();
   const location = useLocation();
   const smDown = useMediaQuery(theme.breakpoints.down('sm'));
@@ -74,7 +77,7 @@ export default function DefaultLayout({ sidebar, navbar, hiddenBottom, scrollToT
   return (
     <RootWrapper className="RootWrapper">
       <Background />
-      {Boolean(navbar) && navbar}
+      <Navbar />
       {Boolean(sidebar) && sidebar}
 
       <MainLayout className="MainLayout" {...props} noPadding={props.noPadding || smDown} withBottomNav={Boolean(navRef.current)}>
@@ -89,4 +92,9 @@ export default function DefaultLayout({ sidebar, navbar, hiddenBottom, scrollToT
       {Boolean(scrollToTop) && (<ScrollToTop />)}
     </RootWrapper>
   );
+}
+
+DefaultLayout.defaultProps = {
+  Footer: FooterComponent,
+  Navbar: NavbarComponent,
 }

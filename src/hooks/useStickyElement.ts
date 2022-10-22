@@ -58,16 +58,10 @@ export default <T extends HTMLElement>({ $el, top }: StickyElementOptions<T>) =>
 
   useEffect(() => {
     window.addEventListener('load', handleStikyElement);
-
-    return () => {
-      window.removeEventListener('load', handleStikyElement);
-    };
-  }, [$el]);
-
-  useEffect(() => {
     window.addEventListener('scroll', handleStikyElement);
 
     return () => {
+      window.removeEventListener('load', handleStikyElement);
       window.removeEventListener('scroll', handleStikyElement);
     };
   }, [$el]);

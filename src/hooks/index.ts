@@ -1,3 +1,4 @@
+export * from './utils';
 export { default as useMounted } from './useMounted';
 export { default as useAppSettings } from './useAppSettings';
 export { default as useAuthentication } from './useAuthentication';

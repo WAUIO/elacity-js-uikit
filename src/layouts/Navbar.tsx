@@ -47,7 +47,6 @@ const Toolbar = styled(MuiToolbar)(({ theme }) => ({
     padding: theme.spacing(0, 1),
   },
 }));
-// ----------------------------------------------------------------------
 
 interface NavbarProps {
   onOpenSidebar?: () => void;

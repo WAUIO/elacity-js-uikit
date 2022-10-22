@@ -1,6 +1,6 @@
 {
   "name": "@elacity-js/uikit",
-  "version": "1.6.0-alpha.11",
+  "version": "1.6.0-alpha.12",
   "description": "React / Material UI Design kit for Elacity project",
   "main": "dist/index.js",
   "module": "dist/index.js",
@@ -33,7 +33,7 @@
   },
   "homepage": "https://github.com/WAUIO/elacity-js-uikit#readme",
   "peerDependencies": {
-    "@elacity-js/lib": "^0.2.0",
+    "@elacity-js/lib": "^0.2.1",
     "@emotion/react": "^11.10.0",
     "@emotion/styled": "^11.10.0",
     "@iconify/icons-eva": "^1.1.0",
