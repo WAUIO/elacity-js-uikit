@@ -5,6 +5,7 @@ import IconButton from './MuiIconButton';
 import Dialog from './MuiDialog';
 import Paper from './MuiPaper';
 import Layout from './Layout';
+import Footer from './Footer';
 import Card from './MuiCard';
 import Typography from './MuiTypography';
 import LinearProgress from './MuiLinearProgress';
@@ -13,6 +14,7 @@ import Popover from './MuiPopover';
 export default function ComponentsOverrides(theme: Theme): Components {
   return merge(
     Layout(theme),
+    Footer(theme),
     Button(theme),
     IconButton(theme),
     Dialog(theme),

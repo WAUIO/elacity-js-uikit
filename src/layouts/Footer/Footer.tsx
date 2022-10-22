@@ -16,6 +16,8 @@ interface ItemProps {
 }
 
 const Item = styled('div', {
+  name: 'FooterItem',
+  slot: 'Root',
   shouldForwardProp: (prop: string) => !['hideFrom'].includes(prop),
 })<ItemProps>(({ theme, hideFrom }) => ({
   ...theme.typography.body2,
@@ -32,9 +34,13 @@ interface FooterContainerProps {
 }
 
 const FooterContainer = styled(Box, {
-  shouldForwardProp: (prop: string) => !['adjustWith'].includes(prop),
+  name: 'Footer',
+  slot: 'Root',
+  shouldForwardProp: (prop: string) => !['adjustWith', 'position'].includes(prop),
+  overridesResolver: (props, styles) => [
+    styles.root,
+  ],
 })<FooterContainerProps>(({ theme }) => ({
-  // position: 'fixed',
   bottom: 0,
   // width: `calc(100vw - ${adjustWith}px)`,
   margin: theme.spacing(2, 'auto', 1),
@@ -46,14 +52,15 @@ const FooterContainer = styled(Box, {
 interface Props {
   sx?: SxProps;
   hideLeftFrom?: Breakpoint;
+  position?: 'fixed' | 'relative' | 'absolute';
 }
 
-export default function FooterLayout({ sx, hideLeftFrom }: Props) {
+export default function FooterLayout({ sx, hideLeftFrom, position }: Props) {
   const isNotLarge = useMediaQuery((t: Theme) => t.breakpoints.down('lg'));
   const { appName } = useAppSettings();
 
   return (
-    <FooterContainer className="Footer-root" sx={sx}>
+    <FooterContainer className="Footer-container" position={position} sx={sx}>
       <Stack
         className="Footer-stack"
         direction={isNotLarge ? 'column' : 'row'}

@@ -102,18 +102,28 @@ const createGradient = (tilt: number | null, ...colors: GradientColorOption[]): 
   return values;
 };
 
+/**
+ * Create a mui theme based on config and customization
+ *
+ * config: IUserPreferences {theme: 'light' | 'dark', direction: 'ltr' | 'rtl'}
+ * customization: Record<'light' | 'dark', ThemeOptions>
+ *
+ * @showcase https://codesandbox.io/s/stoic-moon-y51cyz
+ * 
+ * @param {*} config
+ * @param {*} customization
+ */
 export const createThemeWith = (config: IUserPreferences = {}, customization?: Partial<typeof themes>): Theme => {
   const mode = config.theme || 'light';
-  const userOptions = themes[mode];
+  const userOptions = deepmerge(
+    themes[mode], customization[mode] || {}
+  )
 
   const theme = createTheme(
     deepmerge(
       deepmerge(
         { direction: config.direction || 'ltr' }, commonOptions
-      ),
-      deepmerge(
-        userOptions, customization[mode] || {}
-      )
+      ), userOptions
     )
   );
 
@@ -152,9 +162,14 @@ export const createThemeWith = (config: IUserPreferences = {}, customization?: P
   theme.palette.vivid2 = theme.palette.augmentColor({ color: { main: bcolors.vivid2 }, name: 'vivid2' });
   theme.palette.badge1 = theme.palette.augmentColor({ color: { main: bcolors.badge1 }, name: 'badge1' });
 
-  theme.components = componentsOverrides(theme);
-
-  return responsiveFontSizes(theme);
+  return responsiveFontSizes(
+    createTheme(theme, {
+      components: componentsOverrides(theme)
+    }, {
+      // handle components overrides on customization
+      components: userOptions.components || {}
+    })
+  );
 };
 
 interface ThemeProviderProps {
